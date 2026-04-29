@@ -1,0 +1,10 @@
+/* App-specific styles if any, global styles are in index.css */
+.app-container {
+  overflow-x: hidden;
+}
+
+/* Enhancing IntersectionObserver animations */
+.animate-slide-up {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}

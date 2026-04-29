@@ -1,0 +1,120 @@
+.experience-section {
+  padding: 100px 0;
+}
+
+.timeline {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 2rem;
+}
+
+.timeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marker-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-cyan);
+  z-index: 2;
+  transition: all var(--transition-normal);
+}
+
+.timeline-item:hover .marker-icon {
+  background: var(--accent-cyan);
+  color: var(--bg-primary);
+  box-shadow: var(--glow-cyan);
+}
+
+.marker-line {
+  width: 2px;
+  flex-grow: 1;
+  background: var(--border-color);
+  margin-top: 10px;
+  min-height: 50px;
+}
+
+.timeline-content {
+  flex-grow: 1;
+  padding: 2rem;
+  position: relative;
+  transition: transform var(--transition-normal);
+}
+
+.timeline-item:hover .timeline-content {
+  transform: translateX(10px);
+}
+
+.timeline-content::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid var(--glass-border);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.timeline-title {
+  color: var(--text-primary);
+  font-size: 1.3rem;
+}
+
+.timeline-date {
+  font-family: monospace;
+  color: var(--accent-cyan);
+  font-size: 0.9rem;
+}
+
+.timeline-org {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.timeline-desc {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .timeline-item {
+    gap: 1rem;
+  }
+  
+  .marker-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .timeline-content {
+    padding: 1.5rem;
+  }
+}

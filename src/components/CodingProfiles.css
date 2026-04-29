@@ -1,0 +1,139 @@
+.coding-section {
+  padding: 120px 0;
+}
+
+.coding-section .section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+/* 3-column grid, wraps nicely */
+.cp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+}
+
+/* Card */
+.cp-card {
+  position: relative;
+  padding: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  border: 1px solid var(--glass-border);
+}
+
+.cp-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--cp-border);
+  box-shadow: 0 20px 60px -20px var(--cp-color), 0 0 0 1px var(--cp-border);
+}
+
+/* Coloured top bar */
+.cp-accent-bar {
+  height: 4px;
+  width: 100%;
+  background: var(--cp-color);
+  opacity: 0.9;
+}
+
+/* Inner content */
+.cp-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.6rem 1.6rem 1rem;
+}
+
+.cp-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--cp-bg);
+  border: 1px solid var(--cp-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cp-color);
+  flex-shrink: 0;
+  transition: background 0.3s ease;
+}
+
+.cp-card:hover .cp-icon-wrap {
+  background: color-mix(in srgb, var(--cp-color) 18%, transparent);
+}
+
+/* react-icons SVG size */
+.cp-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.cp-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.2rem;
+}
+
+.cp-username {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-family: monospace;
+}
+
+/* Stat row */
+.cp-stat-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0 1.6rem 1.2rem;
+  flex: 1;
+}
+
+.cp-stat-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--cp-color);
+  line-height: 1;
+}
+
+.cp-stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Visit link */
+.cp-visit {
+  padding: 0.85rem 1.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--cp-color);
+  border-top: 1px solid var(--glass-border);
+  transition: background 0.2s ease;
+}
+
+.cp-card:hover .cp-visit {
+  background: var(--cp-bg);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .cp-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .cp-grid {
+    grid-template-columns: 1fr;
+  }
+}

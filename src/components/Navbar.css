@@ -1,0 +1,138 @@
+.navbar {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  max-width: 1180px;
+  z-index: 1000;
+  transition: all var(--transition-normal);
+  border-radius: 100px;
+  padding: 0.4rem 0;
+  /* always have a subtle glass even at top */
+  background: rgba(3, 5, 10, 0.3);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.navbar.hidden {
+  transform: translate(-50%, -150%);
+  opacity: 0;
+}
+
+.navbar.visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+.navbar.scrolled {
+  padding: 0.6rem 0;
+  background: rgba(3, 5, 10, 0.65);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(0, 240, 255, 0.05);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  height: 3rem;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  position: relative;
+  color: var(--text-primary);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+  transition: width var(--transition-normal);
+}
+
+.nav-links a:hover {
+  color: var(--accent-cyan);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 120%;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all var(--transition-normal);
+  border-radius: 16px;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mobile-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.mobile-menu a {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .desktop-menu {
+    display: none;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+  
+  .mobile-menu {
+    display: flex;
+  }
+}

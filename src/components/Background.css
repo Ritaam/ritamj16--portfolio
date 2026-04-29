@@ -1,0 +1,54 @@
+/* ═══════════════════════════════════════════
+   GLOBAL SILK BACKGROUND
+═══════════════════════════════════════════ */
+.bg-root {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  /* The Silk canvas fills 100% of this div */
+}
+
+/* The Silk canvas must fill its parent */
+.bg-root > canvas {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Dot-grid overlay */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Accent colour tint blobs */
+.bg-tint {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+}
+
+.bg-tint-cyan {
+  width: 600px;
+  height: 600px;
+  top: -100px;
+  left: -100px;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.07) 0%, transparent 70%);
+}
+
+.bg-tint-purple {
+  width: 500px;
+  height: 500px;
+  bottom: -80px;
+  right: -80px;
+  background: radial-gradient(circle, rgba(138, 43, 226, 0.09) 0%, transparent 70%);
+}

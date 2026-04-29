@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ═══════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════ */
+:root {
+  /* Background — now transparent to let the orb bg shine through */
+  --bg-primary:   transparent;
+  --bg-secondary: rgba(10, 12, 20, 0.6);
+  --bg-tertiary:  rgba(18, 22, 35, 0.7);
+
+  /* Text */
+  --text-primary:   #f0f4ff;
+  --text-secondary: #9da8c2;
+  --text-muted:     #5a637a;
+
+  /* Accents */
+  --accent-cyan:   #00f0ff;
+  --accent-purple: #8a2be2;
+  --accent-pink:   #ff2d5b;
+
+  /* Glass */
+  --glass-bg:     rgba(255, 255, 255, 0.04);
+  --glass-bg-hov: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-blur:   14px;
+
+  /* Glows */
+  --glow-cyan:   0 0 30px rgba(0, 240, 255, 0.25);
+  --glow-purple: 0 0 30px rgba(138, 43, 226, 0.25);
+
+  /* Borders */
+  --border-color: rgba(255, 255, 255, 0.08);
+
+  /* Typography */
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Transitions */
+  --transition-fast:   0.18s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow:   0.55s ease;
+}
+
+/* ═══════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: var(--font-main);
+  background: #03050a;        /* deep navy-black base */
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+button {
+  font-family: var(--font-main);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar       { width: 8px; }
+::-webkit-scrollbar-track { background: #03050a; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* ═══════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════ */
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(100deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Glass panel ──
+   All cards / panels use this class.
+   The enhanced backdrop-filter + border gives the frosted-glass look.
+*/
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.glass-panel:hover {
+  background: var(--glass-bg-hov);
+  border-color: rgba(255, 255, 255, 0.13);
+}
+
+/* Section label (small caps above heading) */
+.section-label {
+  text-align: center;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+/* Generic section title */
+.section-title {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink-caret {
+  from, to { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.9s ease forwards;
+  opacity: 0;
+}
+
+/* Staggered delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }

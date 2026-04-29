@@ -1,0 +1,243 @@
+/* ===== About Section ===== */
+.about-section {
+  padding: 120px 0;
+  position: relative;
+}
+
+/* Label above title */
+.section-label {
+  text-align: center;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--accent-cyan);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+/* Override global section-title for local centering */
+.about-section .section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+/* ===== Top grid: bio + code window ===== */
+.about-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+  align-items: start;
+}
+
+/* ---- Bio card ---- */
+.about-bio {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.about-bio p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}
+
+.about-bio p:last-of-type {
+  margin-bottom: 0;
+}
+
+.about-bio strong {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+/* Stats row */
+.about-stats {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid var(--border-color);
+  margin-top: 2rem;
+  padding-top: 2rem;
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  border-right: 1px solid var(--border-color);
+  padding: 0 1rem;
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-number {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ---- Code window ---- */
+.about-code-window {
+  overflow: hidden;
+  border-radius: 16px;
+  height: 100%;
+}
+
+.code-window-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+}
+
+.dot.red    { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green  { background: #27c93f; }
+
+.code-filename {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-left: 8px;
+}
+
+.code-window-body {
+  padding: 2rem;
+  overflow-x: auto;
+}
+
+.code-window-body pre {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #c9d1d9;
+  white-space: pre-wrap;
+}
+
+/* Syntax colors */
+.ck { color: #ff7b72; }   /* keyword */
+.cv { color: #79c0ff; }   /* variable */
+.cp { color: #d2a8ff; }   /* property */
+.cs { color: #a5d6ff; }   /* string */
+
+/* ===== Trait cards row ===== */
+.about-traits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.trait-card {
+  padding: 1.8rem 1.5rem;
+  text-align: center;
+  transition: all var(--transition-normal);
+  cursor: default;
+}
+
+.trait-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 240, 255, 0.2);
+  box-shadow: 0 10px 40px -10px rgba(0, 240, 255, 0.15);
+}
+
+.trait-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: rgba(0, 240, 255, 0.08);
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.2rem;
+  transition: background var(--transition-fast);
+}
+
+.trait-card:hover .trait-icon {
+  background: rgba(0, 240, 255, 0.18);
+}
+
+.trait-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.trait-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .about-traits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .about-top {
+    grid-template-columns: 1fr;
+  }
+
+  .about-code-window {
+    max-height: 350px;
+  }
+
+  .about-traits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-number {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-traits {
+    grid-template-columns: 1fr;
+  }
+
+  .about-stats {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .stat-item {
+    align-items: flex-start;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 0 1.5rem;
+  }
+
+  .stat-item:last-child {
+    border-bottom: none;
+  }
+}
