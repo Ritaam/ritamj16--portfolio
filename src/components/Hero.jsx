@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ChevronDown, Mail, User } from 'lucide-react';
+import { ChevronDown, Mail, User, Download } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import BlurText from './BlurText';
 import './Hero.css';
 
 // ──────────────────────────────────────────────
@@ -107,7 +108,14 @@ const Hero = () => {
         {/* ── Left: text ── */}
         <div className="hero-text-area animate-slide-up">
           <p className="greeting">// Hello World, I'm</p>
-          <h1 className="name">Ritam Jana.</h1>
+          <BlurText
+            text="Ritam Jana."
+            delay={120}
+            animateBy="words"
+            direction="top"
+            stepDuration={0.5}
+            className="name"
+          />
           <h2 className="title text-gradient">
             {headline}
             <span className={`headline-cursor ${hlDeleting ? 'cursor-delete' : ''}`}>|</span>
@@ -130,6 +138,14 @@ const Hero = () => {
           <div className="hero-buttons delay-400 animate-slide-up">
             <a href="#projects" className="btn btn-primary">View Projects</a>
             <a href="#contact" className="btn btn-outline">Contact Me</a>
+            <a
+              href="/resume.pdf"
+              download="Ritam_Jana_Resume.pdf"
+              className="btn btn-resume"
+            >
+              <Download size={16} />
+              Resume
+            </a>
           </div>
 
           <div className="hero-socials delay-500 animate-fade-in">
