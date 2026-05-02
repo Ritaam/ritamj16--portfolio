@@ -1,4 +1,5 @@
-# Ritam Jana — Portfolio
+# Ritam Jana — Portfolio The Link is ritamsworld.netlify.app
+
 
 Personal developer portfolio built with **React + Vite**. Features a dark terminal-inspired aesthetic, WebGL background, blur-in animations, competitive programming showcase, and more.
 
