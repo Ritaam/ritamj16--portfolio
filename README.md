@@ -1,5 +1,5 @@
 # Ritam Jana —  My portfolio website.
-[https://ritamsworld.netlify.app/](https://ritamsworld.netlify.app/)
+[https://ritams-world.netlify.app/](https://ritams-world.netlify.app/)
 
 Personal developer portfolio built with **React + Vite**. Features a dark terminal-inspired aesthetic, WebGL background, blur-in animations, competitive programming showcase, and more.
 
