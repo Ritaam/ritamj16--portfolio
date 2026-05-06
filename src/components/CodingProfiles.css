@@ -52,9 +52,9 @@
 }
 
 .cp-icon-wrap {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   background: var(--cp-bg);
   border: 1px solid var(--cp-border);
   display: flex;
@@ -66,13 +66,12 @@
 }
 
 .cp-card:hover .cp-icon-wrap {
-  background: color-mix(in srgb, var(--cp-color) 18%, transparent);
+  background: color-mix(in srgb, var(--cp-color) 15%, transparent);
 }
 
-/* react-icons SVG size */
 .cp-icon {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
 }
 
 .cp-name {

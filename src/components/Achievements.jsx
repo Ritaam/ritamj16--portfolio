@@ -5,9 +5,10 @@ import './Achievements.css';
 import ach1 from '../assets/achievements/ach1.jpg';
 import ach2 from '../assets/achievements/ach2.jpg';
 import ach3 from '../assets/achievements/ach3.jpg';
+import ach4 from '../assets/achievements/ach4.jpg';
 // Add more: import ach4 from '../assets/achievements/ach4.jpg';
 
-const cardImages = [ach1, ach2, ach3];
+const cardImages = [ach1, ach2, ach3, ach4];
 
 const cards = cardImages.map((src, i) => (
   <img
@@ -50,7 +51,7 @@ const Achievements = () => (
             <li>Academic recognitions &amp; project honours</li>
           </ul>
           <p className="ach-hint">
-            Drag the card or click it to flip through achievements.<br/>
+            Drag the card or click it to flip through achievements.<br />
             Cards cycle automatically every 2.5s.
           </p>
         </div>

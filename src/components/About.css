@@ -1,4 +1,6 @@
-/* ===== About Section ===== */
+/* ═══════════════════════════════════════
+   ABOUT SECTION
+════════════════════════════════════════ */
 .about-section {
   padding: 120px 0;
   position: relative;
@@ -19,7 +21,7 @@
 .about-section .section-title {
   font-size: clamp(2rem, 5vw, 3rem);
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
 }
 
 /* ===== Top grid: bio + code window ===== */
@@ -113,9 +115,17 @@
   border-radius: 50%;
 }
 
-.dot.red    { background: #ff5f56; }
-.dot.yellow { background: #ffbd2e; }
-.dot.green  { background: #27c93f; }
+.dot.red {
+  background: #ff5f56;
+}
+
+.dot.yellow {
+  background: #ffbd2e;
+}
+
+.dot.green {
+  background: #27c93f;
+}
 
 .code-filename {
   font-family: monospace;
@@ -139,10 +149,26 @@
 }
 
 /* Syntax colors */
-.ck { color: #ff7b72; }   /* keyword */
-.cv { color: #79c0ff; }   /* variable */
-.cp { color: #d2a8ff; }   /* property */
-.cs { color: #a5d6ff; }   /* string */
+.ck {
+  color: #ff7b72;
+}
+
+/* keyword */
+.cv {
+  color: #79c0ff;
+}
+
+/* variable */
+.cp {
+  color: #d2a8ff;
+}
+
+/* property */
+.cs {
+  color: #a5d6ff;
+}
+
+/* string */
 
 /* ===== Trait cards row ===== */
 .about-traits {

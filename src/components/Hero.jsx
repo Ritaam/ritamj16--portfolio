@@ -75,7 +75,7 @@ const Hero = () => {
     const speed = hlDeleting ? 35 : 90;
     let timeout;
     if (!hlDeleting && headline === current) {
-      timeout = setTimeout(() => setHlDeleting(true), 2200);
+      timeout = setTimeout(() => setHlDeleting(true), 1600);
     } else if (hlDeleting && headline === '') {
       timeout = setTimeout(() => {
         setHlDeleting(false);
@@ -149,16 +149,16 @@ const Hero = () => {
           </div>
 
           <div className="hero-socials delay-500 animate-fade-in">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="social-icon">
+            <a href="https://github.com/Ritaam" target="_blank" rel="noreferrer" className="social-icon">
               <FaGithub size={20} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-icon">
+            <a href="https://www.linkedin.com/in/ritam-jana-b90382310/" target="_blank" rel="noreferrer" className="social-icon">
               <FaLinkedin size={20} />
             </a>
-            <a href="mailto:ritam@example.com" className="social-icon">
+            <a href="mailto:ritamjana6969@gmail.com" className="social-icon">
               <Mail size={20} />
             </a>
-          </div>
+          </div>  
         </div>
 
         {/* ── Right: profile photo ── */}

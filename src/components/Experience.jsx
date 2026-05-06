@@ -15,8 +15,8 @@ const Experience = () => {
     {
       type: "education",
       title: "Computer Science Engineering",
-      organization: "University",
-      date: "2021 - Present",
+      organization: "Techno International New Town, Kolkata ",
+      date: "2024 - 2028",
       description: "Pursuing a degree in CSE with a focus on core computer science fundamentals. Consistently maintaining a strong academic record while participating in coding clubs.",
       icon: <GraduationCap size={20} />
     },
@@ -24,7 +24,7 @@ const Experience = () => {
       type: "project",
       title: "Building Real-World Projects",
       organization: "Personal Initiatives",
-      date: "2023 - Present",
+      date: "2024 - Present",
       description: "Applying theoretical knowledge to build practical applications. Focusing on clean code, modern architectures, and solving tangible problems.",
       icon: <Briefcase size={20} />
     }
@@ -36,7 +36,7 @@ const Experience = () => {
         <h2 className="section-title">
           <span className="text-gradient">04.</span> My Journey
         </h2>
-        
+
         <div className="timeline">
           {experiences.map((exp, index) => (
             <div key={index} className={`timeline-item delay-\${(index + 1) * 100}`}>
@@ -46,7 +46,7 @@ const Experience = () => {
                 </div>
                 {index !== experiences.length - 1 && <div className="marker-line"></div>}
               </div>
-              
+
               <div className="timeline-content glass-panel">
                 <div className="timeline-header">
                   <h3 className="timeline-title">{exp.title}</h3>

@@ -29,7 +29,7 @@ function App() {
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-    
+
     // Elements to animate on scroll
     const elements = document.querySelectorAll('.section-title, .glass-panel:not(.hero-text-area > .glass-panel)');
     elements.forEach(el => {
@@ -49,7 +49,7 @@ function App() {
     <div className="app-container">
       <Background />
       <Navbar />
-      
+
       <main>
         <Hero />
         <About />
