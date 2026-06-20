@@ -1,16 +1,19 @@
-/* ═══════════════════════════════════════════
-   GLOBAL SILK BACKGROUND
-═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   ADVANCED ANIMATED BACKGROUND
+   Multi-layer: Silk → Particles → Aurora → Glows → Grid → Noise → Vignette
+═══════════════════════════════════════════════════════════ */
+
+/* ── Root Container ── */
 .bg-root {
   position: fixed;
   inset: 0;
   z-index: -10;
   overflow: hidden;
   pointer-events: none;
-  /* The Silk canvas fills 100% of this div */
+  background: #020408;
 }
 
-/* The Silk canvas must fill its parent */
+/* Silk canvas fills parent */
 .bg-root > canvas {
   position: absolute !important;
   inset: 0;
@@ -18,37 +21,316 @@
   height: 100% !important;
 }
 
-/* Dot-grid overlay */
+/* ═══════════════════════════════════════════════════════════
+   AURORA GRADIENT ORBS
+   Large, blurry colour blobs that drift slowly across the viewport.
+   The mix of scale, translate and rotation creates an organic
+   "northern lights" effect.
+═══════════════════════════════════════════════════════════ */
+.aurora-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  mix-blend-mode: screen;
+}
+
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform, opacity;
+}
+
+/* Orb 1 — Cyan top-left, drifts right and down */
+.aurora-orb-1 {
+  width: 700px;
+  height: 700px;
+  top: -15%;
+  left: -10%;
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(0, 240, 255, 0.18) 0%,
+    rgba(0, 180, 220, 0.08) 50%,
+    transparent 70%
+  );
+  animation: auroraFloat1 18s ease-in-out infinite;
+}
+
+/* Orb 2 — Purple bottom-right, drifts left and up */
+.aurora-orb-2 {
+  width: 600px;
+  height: 600px;
+  bottom: -10%;
+  right: -8%;
+  background: radial-gradient(
+    circle at 60% 60%,
+    rgba(138, 43, 226, 0.2) 0%,
+    rgba(100, 20, 180, 0.08) 50%,
+    transparent 70%
+  );
+  animation: auroraFloat2 22s ease-in-out infinite;
+}
+
+/* Orb 3 — Soft blue center, pulses and rotates */
+.aurora-orb-3 {
+  width: 500px;
+  height: 500px;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(60, 130, 255, 0.12) 0%,
+    rgba(40, 100, 200, 0.05) 50%,
+    transparent 70%
+  );
+  animation: auroraFloat3 25s ease-in-out infinite;
+}
+
+/* Orb 4 — Pink accent, lower-left */
+.aurora-orb-4 {
+  width: 450px;
+  height: 450px;
+  bottom: 15%;
+  left: 10%;
+  background: radial-gradient(
+    circle at 40% 60%,
+    rgba(255, 45, 91, 0.10) 0%,
+    rgba(200, 30, 70, 0.04) 50%,
+    transparent 70%
+  );
+  animation: auroraFloat4 20s ease-in-out infinite;
+}
+
+/* Orb 5 — Teal right-center, elongated */
+.aurora-orb-5 {
+  width: 800px;
+  height: 400px;
+  top: 20%;
+  right: -15%;
+  border-radius: 50% / 40%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 200, 180, 0.09) 0%,
+    rgba(0, 150, 130, 0.04) 50%,
+    transparent 70%
+  );
+  animation: auroraFloat5 28s ease-in-out infinite;
+}
+
+/* ── Aurora keyframes ── */
+@keyframes auroraFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.8; }
+  25%      { transform: translate(12vw, 8vh) scale(1.15) rotate(15deg); opacity: 1; }
+  50%      { transform: translate(8vw, 15vh) scale(0.9) rotate(-10deg); opacity: 0.7; }
+  75%      { transform: translate(-5vw, 5vh) scale(1.1) rotate(5deg); opacity: 0.9; }
+}
+
+@keyframes auroraFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.7; }
+  30%      { transform: translate(-10vw, -12vh) scale(1.2) rotate(-20deg); opacity: 1; }
+  60%      { transform: translate(-6vw, -5vh) scale(0.85) rotate(10deg); opacity: 0.65; }
+  80%      { transform: translate(3vw, -8vh) scale(1.05) rotate(-5deg); opacity: 0.85; }
+}
+
+@keyframes auroraFloat3 {
+  0%, 100% { transform: translateX(-50%) scale(1) rotate(0deg); opacity: 0.6; }
+  33%      { transform: translateX(-40%) scale(1.3) rotate(20deg); opacity: 0.9; }
+  66%      { transform: translateX(-60%) scale(0.8) rotate(-15deg); opacity: 0.5; }
+}
+
+@keyframes auroraFloat4 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+  40%      { transform: translate(8vw, -10vh) scale(1.15); opacity: 0.8; }
+  70%      { transform: translate(3vw, -5vh) scale(0.9); opacity: 0.4; }
+}
+
+@keyframes auroraFloat5 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.6; }
+  35%      { transform: translate(-10vw, 5vh) scale(1.1) rotate(8deg); opacity: 0.85; }
+  65%      { transform: translate(-5vw, -3vh) scale(0.95) rotate(-5deg); opacity: 0.55; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PULSING GLOW SOURCES
+   Larger accent lights that breathe in and out.
+═══════════════════════════════════════════════════════════ */
+.glow-source {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.glow-source-cyan {
+  width: 500px;
+  height: 500px;
+  top: -5%;
+  left: 20%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 60%);
+  filter: blur(80px);
+  animation: glowPulse 6s ease-in-out infinite;
+}
+
+.glow-source-purple {
+  width: 450px;
+  height: 450px;
+  bottom: 10%;
+  right: 15%;
+  background: radial-gradient(circle, rgba(138, 43, 226, 0.10) 0%, transparent 60%);
+  filter: blur(90px);
+  animation: glowPulse 8s ease-in-out infinite 2s;
+}
+
+.glow-source-pink {
+  width: 350px;
+  height: 350px;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 45, 91, 0.06) 0%, transparent 60%);
+  filter: blur(70px);
+  animation: glowPulse 10s ease-in-out infinite 4s;
+}
+
+@keyframes glowPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50%      { transform: scale(1.4); opacity: 1; }
+}
+
+/* Override for pink glow which has translate */
+.glow-source-pink {
+  animation: glowPulsePink 10s ease-in-out infinite 4s;
+}
+
+@keyframes glowPulsePink {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+  50%      { transform: translate(-50%, -50%) scale(1.5); opacity: 0.8; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PERSPECTIVE GRID
+   A subtle receding grid that adds depth. Fades at edges.
+═══════════════════════════════════════════════════════════ */
+.bg-perspective-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform: perspective(500px) rotateX(35deg);
+  transform-origin: center top;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.3) 20%,
+    rgba(0,0,0,0.15) 60%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.3) 20%,
+    rgba(0,0,0,0.15) 60%,
+    transparent 100%
+  );
+  animation: gridScroll 30s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes gridScroll {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 60px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DOT GRID (existing, refined)
+═══════════════════════════════════════════════════════════ */
 .bg-grid {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
   pointer-events: none;
+  animation: dotDrift 40s linear infinite;
 }
 
-/* Accent colour tint blobs */
-.bg-tint {
+@keyframes dotDrift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 28px 28px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CINEMATIC NOISE GRAIN
+   Animated pseudo-random noise via a repeating SVG data URI.
+═══════════════════════════════════════════════════════════ */
+.bg-noise {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
+  inset: -50%;
+  width: 200%;
+  height: 200%;
   pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  animation: noiseShift 0.3s steps(3) infinite;
+  mix-blend-mode: overlay;
 }
 
-.bg-tint-cyan {
-  width: 600px;
-  height: 600px;
-  top: -100px;
-  left: -100px;
-  background: radial-gradient(circle, rgba(0, 240, 255, 0.07) 0%, transparent 70%);
+@keyframes noiseShift {
+  0%   { transform: translate(0, 0); }
+  33%  { transform: translate(-80px, -40px); }
+  66%  { transform: translate(60px, -90px); }
+  100% { transform: translate(-30px, 70px); }
 }
 
-.bg-tint-purple {
-  width: 500px;
-  height: 500px;
-  bottom: -80px;
-  right: -80px;
-  background: radial-gradient(circle, rgba(138, 43, 226, 0.09) 0%, transparent 70%);
+/* ═══════════════════════════════════════════════════════════
+   VIGNETTE
+   Darkens the edges to draw focus to center content.
+═══════════════════════════════════════════════════════════ */
+.bg-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 75% 75% at 50% 50%,
+    transparent 40%,
+    rgba(2, 4, 8, 0.5) 100%
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PERFORMANCE — Reduce motion for accessibility
+═══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-orb,
+  .glow-source,
+  .bg-perspective-grid,
+  .bg-grid,
+  .bg-noise {
+    animation: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE — Reduce complexity for performance
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .aurora-orb {
+    filter: blur(70px);
+  }
+  .aurora-orb-4,
+  .aurora-orb-5 {
+    display: none;
+  }
+  .bg-perspective-grid {
+    display: none;
+  }
+  .glow-source-pink {
+    display: none;
+  }
 }

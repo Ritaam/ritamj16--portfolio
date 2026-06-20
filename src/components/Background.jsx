@@ -1,21 +1,47 @@
 import React from 'react';
 import Silk from './Silk';
+import ParticleField from './ParticleField';
 import './Background.css';
 
 const Background = () => (
   <div className="bg-root" aria-hidden="true">
+    {/* Base layer: animated Silk shader */}
     <Silk
-      speed={4}
-      scale={1}
-      color="#0b4941ff"
-      noiseIntensity={1.5}
+      speed={3}
+      scale={1.2}
+      color="#0a2e40"
+      noiseIntensity={1.8}
       rotation={0}
     />
-    {/* Subtle dot-grid overlay on top of Silk */}
+
+    {/* Floating particle canvas */}
+    <ParticleField />
+
+    {/* Animated aurora gradient orbs */}
+    <div className="aurora-container">
+      <div className="aurora-orb aurora-orb-1" />
+      <div className="aurora-orb aurora-orb-2" />
+      <div className="aurora-orb aurora-orb-3" />
+      <div className="aurora-orb aurora-orb-4" />
+      <div className="aurora-orb aurora-orb-5" />
+    </div>
+
+    {/* Pulsing accent glow sources */}
+    <div className="glow-source glow-source-cyan" />
+    <div className="glow-source glow-source-purple" />
+    <div className="glow-source glow-source-pink" />
+
+    {/* Perspective grid overlay */}
+    <div className="bg-perspective-grid" />
+
+    {/* Subtle dot-grid overlay */}
     <div className="bg-grid" />
-    {/* Colour tint overlays so the silk stays dark but has accent glow */}
-    <div className="bg-tint bg-tint-cyan" />
-    <div className="bg-tint bg-tint-purple" />
+
+    {/* Cinematic noise grain */}
+    <div className="bg-noise" />
+
+    {/* Vignette darkening around edges */}
+    <div className="bg-vignette" />
   </div>
 );
 
