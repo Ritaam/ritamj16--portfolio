@@ -1,26 +1,40 @@
 import { useRef, useEffect, useCallback } from 'react';
 
-const PARTICLE_COUNT = 80;
+const PARTICLE_COUNT = 45;
 const COLORS = [
-  'rgba(0, 240, 255, ',   // cyan
-  'rgba(138, 43, 226, ',  // purple
-  'rgba(100, 180, 255, ', // soft blue
-  'rgba(255, 45, 91, ',   // pink accent
-  'rgba(200, 200, 255, ', // pale lavender
+  [0, 240, 255],    // cyan
+  [138, 43, 226],   // purple
+  [100, 180, 255],  // soft blue
+  [255, 45, 91],    // pink accent
+  [200, 200, 255],  // pale lavender
 ];
 
+// Pre-bake a small offscreen glow sprite (reused for all particles)
+function createGlowSprite(r, g, g2, b, opacity) {
+  const size = 24;
+  const oc = document.createElement('canvas');
+  oc.width = size; oc.height = size;
+  const ctx = oc.getContext('2d');
+  const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  grad.addColorStop(0, `rgba(${r},${g2},${b},${opacity})`);
+  grad.addColorStop(1, 'transparent');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, size, size);
+  return oc;
+}
+
 function createParticle(width, height) {
-  const colorBase = COLORS[Math.floor(Math.random() * COLORS.length)];
-  const opacity = 0.15 + Math.random() * 0.35;
+  const [r, g, b] = COLORS[Math.floor(Math.random() * COLORS.length)];
+  const opacity = 0.2 + Math.random() * 0.3;
   return {
     x: Math.random() * width,
     y: Math.random() * height,
-    radius: 1 + Math.random() * 2.5,
-    vx: (Math.random() - 0.5) * 0.3,
-    vy: (Math.random() - 0.5) * 0.25 - 0.05, // gentle upward drift
-    color: colorBase + opacity + ')',
-    glowColor: colorBase + (opacity * 0.5) + ')',
-    pulseSpeed: 0.5 + Math.random() * 2,
+    radius: 1 + Math.random() * 2,
+    vx: (Math.random() - 0.5) * 0.25,
+    vy: (Math.random() - 0.5) * 0.2 - 0.04,
+    color: `rgba(${r},${g},${b},${opacity})`,
+    sprite: createGlowSprite(r, g, g, b, opacity * 0.4),
+    pulseSpeed: 0.4 + Math.random() * 1.2,
     pulseOffset: Math.random() * Math.PI * 2,
   };
 }
@@ -49,8 +63,14 @@ const ParticleField = () => {
 
   useEffect(() => {
     init();
-    const handleResize = () => init();
+    let resizeTimer;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(init, 200);
+    };
     window.addEventListener('resize', handleResize);
+
+    const spriteSize = 24;
 
     const animate = () => {
       const canvas = canvasRef.current;
@@ -63,32 +83,24 @@ const ParticleField = () => {
       ctx.clearRect(0, 0, w, h);
 
       particlesRef.current.forEach((p) => {
-        // Gentle sinusoidal movement
         const pulse = Math.sin(timeRef.current * p.pulseSpeed + p.pulseOffset);
         const currentRadius = p.radius * (0.7 + 0.3 * pulse);
 
-        p.x += p.vx + Math.sin(timeRef.current * 0.5 + p.pulseOffset) * 0.1;
-        p.y += p.vy + Math.cos(timeRef.current * 0.3 + p.pulseOffset) * 0.05;
+        p.x += p.vx + Math.sin(timeRef.current * 0.4 + p.pulseOffset) * 0.08;
+        p.y += p.vy + Math.cos(timeRef.current * 0.25 + p.pulseOffset) * 0.04;
 
-        // Wrap around
         if (p.x < -10) p.x = w + 10;
         if (p.x > w + 10) p.x = -10;
         if (p.y < -10) p.y = h + 10;
         if (p.y > h + 10) p.y = -10;
 
-        // Glow
-        ctx.beginPath();
-        const gradient = ctx.createRadialGradient(
-          p.x, p.y, 0,
-          p.x, p.y, currentRadius * 4
-        );
-        gradient.addColorStop(0, p.color);
-        gradient.addColorStop(1, 'transparent');
-        ctx.fillStyle = gradient;
-        ctx.arc(p.x, p.y, currentRadius * 4, 0, Math.PI * 2);
-        ctx.fill();
+        // Draw pre-baked glow sprite (cheap: just an image copy)
+        const glowSize = currentRadius * 8;
+        ctx.globalAlpha = 0.6;
+        ctx.drawImage(p.sprite, p.x - glowSize / 2, p.y - glowSize / 2, glowSize, glowSize);
+        ctx.globalAlpha = 1;
 
-        // Core
+        // Core dot
         ctx.beginPath();
         ctx.fillStyle = p.color;
         ctx.arc(p.x, p.y, currentRadius, 0, Math.PI * 2);
@@ -101,6 +113,7 @@ const ParticleField = () => {
     rafRef.current = requestAnimationFrame(animate);
 
     return () => {
+      clearTimeout(resizeTimer);
       window.removeEventListener('resize', handleResize);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };

@@ -109,7 +109,7 @@ const Hero = () => {
         <div className="hero-text-area animate-slide-up">
           <p className="greeting">// Hello World, I'm</p>
           <BlurText
-            text="Ritam Jana."
+            text="RITAM JANA..."
             delay={120}
             animateBy="words"
             direction="top"
@@ -168,7 +168,7 @@ const Hero = () => {
               {profileSrc && !imgError ? (
                 <img
                   src={profileSrc}
-                  alt="Ritam Jana"
+                  alt="RITAM JANA"
                   className="hero-photo"
                   onError={() => setImgError(true)}
                 />

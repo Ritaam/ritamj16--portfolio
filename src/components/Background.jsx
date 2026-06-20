@@ -9,7 +9,7 @@ const Background = () => (
     <Silk
       speed={3}
       scale={1.2}
-      color="#0a2e40"
+      color="#292b2eff"
       noiseIntensity={1.8}
       rotation={0}
     />

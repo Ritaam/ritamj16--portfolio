@@ -151,7 +151,92 @@ img, video {
 }
 
 /* ═══════════════════════════════════════
-   ANIMATIONS
+   SCROLL REVEAL SYSTEM
+   .reveal  = initial hidden state (set in JS so non-JS users see content)
+   .revealed = triggered by IntersectionObserver → runs transition
+═══════════════════════════════════════ */
+
+/* Base: fade + slide-up */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Fade only (no movement) */
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.reveal-fade.revealed {
+  opacity: 1;
+}
+
+/* Slide from left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Slide from right */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Zoom in */
+.reveal-zoom {
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-zoom.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Section divider (soft gradient line between sections) ── */
+section + section::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 240, 255, 0.15) 30%,
+    rgba(138, 43, 226, 0.15) 70%,
+    transparent 100%
+  );
+  margin: 0 10%;
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════
+   LEGACY KEYFRAME ANIMATIONS
+   (still used by Hero enter animations)
 ═══════════════════════════════════════ */
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -183,3 +268,9 @@ img, video {
 .delay-300 { animation-delay: 0.3s; }
 .delay-400 { animation-delay: 0.4s; }
 .delay-500 { animation-delay: 0.5s; }
+
+/* ─── Smooth scroll anchor offset ─── */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
