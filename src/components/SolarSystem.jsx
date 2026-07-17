@@ -263,7 +263,7 @@ function SolarSystemWidget({
           <div style={{ width:80, height:80, borderRadius:'50%', border:'2px solid rgba(20,184,166,0.4)', boxShadow:'0 0 30px rgba(20,184,166,.3)', background:'#050816', display:'flex', alignItems:'center', justifyContent:'center', zIndex:20, position:'relative' }}>
             {centerLogo
               ? typeof centerLogo === 'string'
-                ? <img src={centerLogo} alt={centerLogoAlt} style={{ width:52, height:52, borderRadius:'50%', objectFit:'cover' }} />
+                ? <img src={centerLogo} alt={centerLogoAlt} style={{ width:52, height:52, borderRadius:'50%', objectFit:'cover' }} loading="lazy" decoding="async" />
                 : centerLogo
               : <OrbitIcon style={{ width:36, height:36, color:'#2dd4bf', animation:'spin 10s linear infinite' }} />
             }

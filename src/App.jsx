@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import SpotlightNavbar from './components/SpotlightNavbar';
 import Hero from './components/Hero';
 import ProfileCard from './components/ProfileCard';
-import SolarSystem from './components/SolarSystem';
-import CodingProfiles from './components/CodingProfiles';
-import Projects from './components/Projects';
-import Experience from './components/Experience';
-import Achievements from './components/Achievements';
-import Contact from './components/Contact';
 import Background from './components/Background';
 import CursorGlow from './components/CursorGlow';
 import useScrollReveal from './components/useScrollReveal';
+
+const SolarSystem = lazy(() => import('./components/SolarSystem'));
+const CodingProfiles = lazy(() => import('./components/CodingProfiles'));
+const Projects = lazy(() => import('./components/Projects'));
+const Experience = lazy(() => import('./components/Experience'));
+const Achievements = lazy(() => import('./components/Achievements'));
+const Contact = lazy(() => import('./components/Contact'));
+
 import './App.css';
 
 function BackToTop() {
@@ -68,12 +70,12 @@ function App() {
       <main>
         <Hero />
         <div className="reveal"><ProfileCard /></div>
-        <SolarSystem />
-        <div className="reveal" data-delay="60"><CodingProfiles /></div>
-        <div className="reveal" data-delay="60"><Projects /></div>
-        <div className="reveal" data-delay="60"><Experience /></div>
-        <div className="reveal" data-delay="60"><Achievements /></div>
-        <div className="reveal" data-delay="60"><Contact /></div>
+        <Suspense fallback={<div style={{ minHeight: '30vh' }}></div>}><SolarSystem /></Suspense>
+        <div className="reveal" data-delay="60"><Suspense fallback={<div style={{ minHeight: '30vh' }}></div>}><CodingProfiles /></Suspense></div>
+        <div className="reveal" data-delay="60"><Suspense fallback={<div style={{ minHeight: '30vh' }}></div>}><Projects /></Suspense></div>
+        <div className="reveal" data-delay="60"><Suspense fallback={<div style={{ minHeight: '30vh' }}></div>}><Experience /></Suspense></div>
+        <div className="reveal" data-delay="60"><Suspense fallback={<div style={{ minHeight: '30vh' }}></div>}><Achievements /></Suspense></div>
+        <div className="reveal" data-delay="60"><Suspense fallback={<div style={{ minHeight: '30vh' }}></div>}><Contact /></Suspense></div>
       </main>
 
       <footer style={{

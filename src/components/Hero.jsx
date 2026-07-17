@@ -101,6 +101,9 @@ const Hero = () => {
                     src={profileSrc}
                     alt="RITAM JANA"
                     className="hero-photo"
+                    loading="eager"
+                    decoding="async"
+                    fetchpriority="high"
                     onError={() => setImgError(true)}
                   />
                 ) : (

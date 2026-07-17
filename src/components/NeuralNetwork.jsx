@@ -78,7 +78,7 @@ const STARS = Array.from({ length: 40 }, () => ({
 const NeuralNetwork = () => {
   const sectionRef   = useRef(null);
   const containerRef = useRef(null);
-  const isInView     = useInView(sectionRef, { once: true, margin: '-80px' });
+  const isInView     = useInView(sectionRef, { once: false, margin: '-80px' });
 
   const [dims,      setDims]      = useState({ width: 1000, height: 580 });
   const [hoveredId, setHoveredId] = useState(null);

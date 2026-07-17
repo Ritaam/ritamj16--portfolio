@@ -16,6 +16,8 @@ const cards = cardImages.map((src, i) => (
     src={src}
     alt={`Achievement ${i + 1}`}
     className="card-image"
+    loading="lazy"
+    decoding="async"
   />
 ));
 
