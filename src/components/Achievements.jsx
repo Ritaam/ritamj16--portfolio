@@ -50,10 +50,7 @@ const Achievements = () => (
             <li>Hackathon awards &amp; certifications</li>
             <li>Academic recognitions &amp; project honours</li>
           </ul>
-          <p className="ach-hint">
-            Drag the card or click it to flip through achievements.<br />
-            Cards cycle automatically every 2.5s.
-          </p>
+          
         </div>
       </div>
     </div>

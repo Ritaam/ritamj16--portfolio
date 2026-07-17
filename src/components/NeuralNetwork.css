@@ -1,0 +1,294 @@
+/* ═══════════════════════════════════════════════════════
+   INTERACTIVE NEURAL NETWORK — Premium Glass Visual
+═══════════════════════════════════════════════════════ */
+
+/* ── Section ── */
+.neural-section {
+  padding: 6rem 0 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.neural-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.neural-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0.6rem auto 0;
+  line-height: 1.7;
+}
+
+/* ── Canvas ── */
+.neural-canvas {
+  position: relative;
+  width: 92%;
+  max-width: 1080px;
+  height: 600px;
+  margin: 0 auto;
+  cursor: crosshair;
+  user-select: none;
+}
+
+/* Glass backing — subtle dark panel behind the network */
+.neural-glass-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: rgba(5, 8, 22, 0.45);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 80px rgba(0, 229, 255, 0.03);
+}
+
+/* ── SVG ── */
+.neural-svg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* Star twinkle */
+@keyframes starTwinkle {
+  0%,100% { opacity: var(--op, 0.25); }
+  50%      { opacity: calc(var(--op, 0.25) * 0.3); }
+}
+
+/* ── Node wrapper (Framer Motion does entrance) ── */
+.nn-node-wrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+/* ── Node circle ── */
+.nn-node {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* Floating is pure CSS so it doesn't conflict with the parallax transform */
+}
+
+/* ── Ping rings on center ── */
+.nn-ping {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1.5px solid;
+  animation: nnPing 3s ease-out infinite;
+  pointer-events: none;
+}
+.nn-ping-2 {
+  inset: -12px;
+  animation: nnPing 3s ease-out 1.5s infinite;
+}
+
+@keyframes nnPing {
+  0%   { transform: scale(1);   opacity: 1; }
+  70%  { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+/* ── Node label ── */
+.nn-label {
+  font-family: var(--font-space);
+  text-align: center;
+  line-height: 1.2;
+  white-space: pre-line;
+  pointer-events: none;
+  display: block;
+}
+
+/* ── Floating keyframes (6 variants) ── */
+@keyframes nnFloat0 {
+  0%,100% { transform: translate(0px,  0px) rotate(0deg); }
+  25%     { transform: translate(6px, -9px) rotate(0.4deg); }
+  50%     { transform: translate(-4px, 5px) rotate(-0.3deg); }
+  75%     { transform: translate(3px, -4px) rotate(0.2deg); }
+}
+@keyframes nnFloat1 {
+  0%,100% { transform: translate(0px,   0px) rotate(0deg); }
+  30%     { transform: translate(-7px,  8px) rotate(-0.5deg); }
+  60%     { transform: translate( 5px, -6px) rotate( 0.4deg); }
+  80%     { transform: translate(-2px,  4px) rotate(-0.2deg); }
+}
+@keyframes nnFloat2 {
+  0%,100% { transform: translate(0px, 0px); }
+  33%     { transform: translate( 8px, -5px) rotate(0.3deg); }
+  66%     { transform: translate(-6px,  7px) rotate(-0.4deg); }
+}
+@keyframes nnFloat3 {
+  0%,100% { transform: translate(0px,  0px); }
+  20%     { transform: translate(-5px, -8px) rotate(-0.3deg); }
+  50%     { transform: translate( 7px,  4px) rotate( 0.5deg); }
+  80%     { transform: translate(-3px, -2px) rotate(-0.1deg); }
+}
+@keyframes nnFloat4 {
+  0%,100% { transform: translate(0px,  0px); }
+  40%     { transform: translate( 5px,  9px) rotate( 0.4deg); }
+  70%     { transform: translate(-8px, -4px) rotate(-0.3deg); }
+}
+@keyframes nnFloat5 {
+  0%,100% { transform: translate(0px,  0px); }
+  25%     { transform: translate(-6px,  5px) rotate(-0.4deg); }
+  55%     { transform: translate( 9px, -7px) rotate( 0.5deg); }
+  80%     { transform: translate(-4px,  3px) rotate(-0.2deg); }
+}
+
+/* ── Tooltip ── */
+.nn-tooltip {
+  position: absolute;
+  width: 200px;
+  padding: 1rem 1.1rem;
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 200;
+  background: rgba(5, 8, 22, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(var(--tc, 0,229,255), 0.22);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 30px color-mix(in srgb, var(--tc,#00E5FF) 12%, transparent);
+
+  /* Default position: below, centered */
+  left: 50%;
+  top: calc(100% + 12px);
+  transform: translateX(-50%);
+}
+
+.nn-tooltip[data-side="left"]  { left: auto; right: calc(100% + 12px); top: 50%; transform: translateY(-50%); }
+.nn-tooltip[data-side="right"] { left: calc(100% + 12px); top: 50%; transform: translateY(-50%); }
+.nn-tooltip[data-vert="up"]    { top: auto; bottom: calc(100% + 12px); }
+/* override for corners */
+.nn-tooltip[data-side="left"][data-vert="up"]   { top:auto; bottom:0; transform:none; }
+.nn-tooltip[data-side="right"][data-vert="up"]  { top:auto; bottom:0; transform:none; }
+
+.nn-tt-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+}
+
+.nn-tt-name {
+  font-family: var(--font-space);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.nn-tt-stars {
+  font-size: 0.7rem;
+  color: #F59E0B;
+  flex-shrink: 0;
+  margin-top: 2px;
+  letter-spacing: 1px;
+}
+
+.nn-tt-empty-stars {
+  opacity: 0.2;
+}
+
+.nn-tt-role {
+  font-size: 0.76rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.nn-tt-detail {
+  font-size: 0.73rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 0.65rem;
+}
+
+.nn-tt-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+}
+
+.nn-tt-tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  border-radius: 100px;
+  padding: 0.12rem 0.5rem;
+  border: 1px solid;
+}
+
+/* ── Ambient blobs ── */
+.nn-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(90px);
+}
+.nn-blob-1 {
+  width: 480px; height: 480px;
+  top: -15%; left: -10%;
+  background: radial-gradient(circle, rgba(0,229,255,0.07) 0%, transparent 65%);
+  animation: blobDrift 22s ease-in-out infinite;
+}
+.nn-blob-2 {
+  width: 420px; height: 420px;
+  bottom: -15%; right: -8%;
+  background: radial-gradient(circle, rgba(124,58,237,0.09) 0%, transparent 65%);
+  animation: blobDrift 26s ease-in-out infinite reverse;
+}
+.nn-blob-3 {
+  width: 300px; height: 300px;
+  top: 35%; left: 38%;
+  background: radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 65%);
+  animation: blobDrift 18s ease-in-out 5s infinite;
+}
+
+@keyframes blobDrift {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%     { transform: translate(25px,-18px) scale(1.08); }
+  66%     { transform: translate(-18px,25px) scale(0.93); }
+}
+
+/* ── Legend hint at the bottom ── */
+.neural-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.8rem;
+  flex-wrap: wrap;
+}
+
+.nn-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.nn-legend-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .neural-canvas { height: 480px; }
+}
+@media (max-width: 600px) {
+  .neural-canvas { height: 380px; width: 100%; }
+  .nn-tooltip { width: 165px; font-size: 0.88em; }
+  .nn-blob-3 { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nn-node, .nn-ping, .nn-blob { animation: none !important; }
+}

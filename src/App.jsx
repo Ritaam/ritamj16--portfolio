@@ -1,32 +1,74 @@
-import React from 'react';
-import Navbar from './components/Navbar';
+import React, { useState, useEffect } from 'react';
+import SpotlightNavbar from './components/SpotlightNavbar';
 import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
+import ProfileCard from './components/ProfileCard';
+import SolarSystem from './components/SolarSystem';
 import CodingProfiles from './components/CodingProfiles';
 import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Background from './components/Background';
+import CursorGlow from './components/CursorGlow';
 import useScrollReveal from './components/useScrollReveal';
 import './App.css';
 
+function BackToTop() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 400);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  return (
+    <button
+      onClick={scrollTop}
+      aria-label="Back to top"
+      style={{
+        position: 'fixed',
+        bottom: '2rem',
+        right: '2rem',
+        width: 48,
+        height: 48,
+        borderRadius: '50%',
+        background: 'linear-gradient(135deg, var(--cyan), var(--purple))',
+        border: 'none',
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '1.2rem',
+        zIndex: 500,
+        cursor: 'none',
+        boxShadow: 'var(--glow-cyan)',
+        opacity: show ? 1 : 0,
+        transform: show ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.8)',
+        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        pointerEvents: show ? 'auto' : 'none',
+      }}
+    >
+      ↑
+    </button>
+  );
+}
+
 function App() {
-  // Attach scroll-reveal observer to all .reveal* elements in the DOM
   useScrollReveal();
 
   return (
     <div className="app-container">
+      <CursorGlow />
       <Background />
-      <Navbar />
+      <SpotlightNavbar />
 
       <main>
-        {/* Hero has its own entrance animations — no reveal wrapper needed */}
         <Hero />
-
-        <div className="reveal"><About /></div>
-        <div className="reveal" data-delay="60"><Skills /></div>
+        <div className="reveal"><ProfileCard /></div>
+        <SolarSystem />
         <div className="reveal" data-delay="60"><CodingProfiles /></div>
         <div className="reveal" data-delay="60"><Projects /></div>
         <div className="reveal" data-delay="60"><Experience /></div>
@@ -34,10 +76,32 @@ function App() {
         <div className="reveal" data-delay="60"><Contact /></div>
       </main>
 
-      <footer className="footer" style={{ textAlign: 'center', padding: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-muted)' }}>
-        <p>Built with React &amp; Vanilla CSS by Ritam Jana.</p>
-        <p style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>Inspired by Apple aesthetics.</p>
+      <footer style={{
+        textAlign: 'center',
+        padding: '2.5rem 2rem',
+        borderTop: '1px solid rgba(0,229,255,0.08)',
+        background: 'rgba(5,8,22,0.8)',
+        backdropFilter: 'blur(20px)',
+        position: 'relative',
+      }}>
+        <div style={{
+          fontFamily: 'var(--font-space)',
+          fontSize: '1.3rem',
+          fontWeight: 700,
+          marginBottom: '0.6rem',
+        }}>
+          <span className="text-gradient">&lt;RJ /&gt;</span>
+        </div>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+          Built with React &amp; Tailwind CSS by{' '}
+          <span style={{ color: 'var(--cyan)' }}>Ritam Jana</span>.
+        </p>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: '0.4rem' }}>
+          Designed for impact. Engineered for precision.
+        </p>
       </footer>
+
+      <BackToTop />
     </div>
   );
 }

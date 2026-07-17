@@ -1,0 +1,69 @@
+.text-3d-flip-container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.inline {
+  display: inline;
+}
+
+.transform-3d {
+  transform-style: preserve-3d;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flex-center-char {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1em;
+  line-height: 1;
+}
+
+.whitespace-pre {
+  white-space: pre;
+}
+
+.text-3d-flip-char {
+  display: inline-block;
+  transform-style: preserve-3d;
+  position: relative;
+}
