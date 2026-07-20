@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Award, ExternalLink } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Award, ExternalLink, Code2, Brain, Globe, Cpu } from 'lucide-react';
 import './ProfileCard.css';
 
 let profileSrc = null;
@@ -11,21 +11,25 @@ const SKILLS = [
   {
     label: 'Programming',
     color: '#00E5FF',
+    icon: Code2,
     items: ['C++', 'Python', 'Java', 'JavaScript', 'SQL'],
   },
   {
     label: 'AI & ML',
     color: '#A855F7',
+    icon: Brain,
     items: ['Machine Learning', 'TensorFlow', 'NumPy', 'Pandas', 'Graph RAG'],
   },
   {
     label: 'Web & Backend',
     color: '#38BDF8',
+    icon: Globe,
     items: ['React', 'Node.js', 'Express.js', 'REST APIs', 'Git & GitHub'],
   },
   {
     label: 'Core CS',
     color: '#F89820',
+    icon: Cpu,
     items: ['Data Structures', 'Algorithms', 'OS', 'DBMS', 'System Design'],
   },
 ];
@@ -52,34 +56,56 @@ const EXPERIENCE = [
 ];
 
 const CERTIFICATIONS = [
-  { issuer: 'IBM',    title: 'Generative AI: Prompt Engineering Basics',      link: '#' },
-  { issuer: 'IBM',    title: 'Generative AI: Introduction and Applications',  link: '#' },
-  { issuer: 'IBM',    title: 'Generative AI for Software Developers',         link: '#' },
-  { issuer: 'Google', title: 'Introduction to AI',                            link: '#' },
-  { issuer: 'Google', title: 'Machine Learning Crash Course',                  link: '#' },
-  { issuer: 'Meta',   title: 'Introduction to Front-End Development',          link: '#' },
+  { issuer: 'Indian Institute of Technology, Kharagpur', title: "National Students' Space Challenge 2025", credId: 'NSSC25/PID25-654250', link: 'https://app.truscholar.io/profile?credId=692d46dfa7f26c822b19f214', issued: 'Dec 2025' },
+  { issuer: 'Coursera', title: 'AWS S3 Basics', credId: 'U3FHPWJ4VCHA', link: 'https://coursera.org/verify/U3FHPWJ4VCHA', issued: 'Jul 2025' },
+  { issuer: 'Microsoft', title: 'Data Structures and Algorithms', credId: 'UKVARDNXXE8W', link: 'https://www.coursera.org/account/accomplishments/verify/UKVARDNXXE8W', issued: 'Jul 2025' },
+  { issuer: 'Microsoft', title: 'Preparing for the AZ-900 Microsoft Azure Fundamentals Exam', credId: 'YTGVLRVGANOE', link: 'https://www.coursera.org/account/accomplishments/verify/YTGVLRVGANOE', issued: 'Jun 2025' },
+  { issuer: 'Amazon Web Services (AWS)', title: 'AWS Cloud Practitioner Essentials', credId: 'IQ1UOWHAFPJ1', link: 'https://coursera.org/verify/IQ1UOWHAFPJ1', issued: 'Jun 2025' },
+  { issuer: 'Neo4j', title: 'Neo4j Certified Professional', credId: 'fb27cffa-68fd-4622-aafc-beb94b433479', link: 'https://graphacademy.neo4j.com/c/fb27cffa-68fd-4622-aafc-beb94b433479', issued: 'Apr 2025' },
+  { issuer: 'United Latino Students Association', title: 'Introduction to Large Language Models', credId: 'U2UBH18XEU4H', link: 'https://coursera.org/verify/U2UBH18XEU4H', issued: 'Apr 2025' },
+  { issuer: 'Google Cloud Security', title: 'Introduction to Generative AI', credId: '17FAE5UJR472', link: 'https://coursera.org/verify/17FAE5UJR472', issued: 'Apr 2025' },
 ];
 
 const ISSUER_COLOR = {
-  IBM:    '#0062FF',
-  Google: '#EA4335',
-  Meta:   '#0866FF',
-  AWS:    '#FF9900',
+  'Indian Institute of Technology, Kharagpur': '#00A4EF',
   Coursera: '#0056D2',
+  Microsoft: '#00A4EF',
+  'Amazon Web Services (AWS)': '#FF9900',
+  Neo4j: '#018BFF',
+  'United Latino Students Association': '#A855F7',
+  'Google Cloud Security': '#4285F4',
+};
+
+const ISSUER_SHORT = {
+  'Indian Institute of Technology, Kharagpur': 'IIT KGP',
+  'Amazon Web Services (AWS)': 'AWS',
+  'United Latino Students Association': 'ULSA',
+  'Google Cloud Security': 'Google Cloud',
 };
 
 /* ─── Sub-components ────────────────────────────────── */
-function SkillGroup({ label, color, items, delay }) {
+function SkillGroup({ label, color, icon: Icon, items, delay }) {
   return (
     <motion.div
       className="pc-skill-group"
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
     >
-      <p className="pc-skill-label" style={{ color }}>{label}:</p>
-      <p className="pc-skill-items">{items.join(', ')}</p>
+      <div className="pc-skill-header">
+        <span className="pc-skill-icon" style={{ background: `${color}18`, border: `1px solid ${color}33` }}>
+          <Icon size={14} style={{ color }} />
+        </span>
+        <span className="pc-skill-label" style={{ color }}>{label}</span>
+      </div>
+      <div className="pc-skill-pills">
+        {items.map((item) => (
+          <span key={item} className="pc-skill-pill" style={{ '--pill-color': color }}>
+            {item}
+          </span>
+        ))}
+      </div>
     </motion.div>
   );
 }
@@ -105,25 +131,38 @@ function ExpItem({ role, org, period, points, delay }) {
   );
 }
 
-function CertCard({ issuer, title, link, delay }) {
+function CertCard({ issuer, title, credId, link, issued, delay }) {
   const color = ISSUER_COLOR[issuer] || '#00E5FF';
+  const short = ISSUER_SHORT[issuer] || issuer;
   return (
     <motion.a
       href={link}
       target="_blank"
       rel="noreferrer"
       className="pc-cert-card"
-      initial={{ opacity: 0, y: 12 }}
+      style={{ '--cert-color': color }}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.45, delay }}
-      whileHover={{ y: -3, boxShadow: `0 8px 24px ${color}22` }}
+      whileHover={{ y: -2 }}
     >
-      <div className="pc-cert-top">
-        <span className="pc-cert-issuer" style={{ color }}>{issuer}:</span>
-        <ExternalLink size={12} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
+      <div className="pc-cert-accent" />
+      <div className="pc-cert-body">
+        <div className="pc-cert-meta">
+          <span className="pc-cert-badge" style={{ background: `${color}18`, color, border: `1px solid ${color}33` }}>
+            {short}
+          </span>
+          {issued && <span className="pc-cert-issued">{issued}</span>}
+        </div>
+        <p className="pc-cert-title">{title}</p>
+        <div className="pc-cert-footer">
+          <span className="pc-cert-id">ID: {credId}</span>
+          <span className="pc-cert-cta">
+            View <ExternalLink size={10} />
+          </span>
+        </div>
       </div>
-      <p className="pc-cert-title">{title}</p>
     </motion.a>
   );
 }
@@ -223,10 +262,11 @@ export default function ProfileCard() {
               <span className="pc-title-bar" />
               <Award size={18} style={{ color: 'var(--cyan)', marginRight: 6 }} />
               Certifications
+              <span className="pc-cert-count">{CERTIFICATIONS.length}</span>
             </h3>
             <div className="pc-certs-list">
               {CERTIFICATIONS.map((c, i) => (
-                <CertCard key={i} {...c} delay={i * 0.07} />
+                <CertCard key={i} {...c} delay={i * 0.06} />
               ))}
             </div>
           </motion.div>

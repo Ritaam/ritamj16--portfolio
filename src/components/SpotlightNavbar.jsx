@@ -1,17 +1,15 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { animate } from 'framer-motion';
+import { Download } from 'lucide-react';
 import './SpotlightNavbar.css';
 
 /* ─── Nav items ─────────────────────────────────────── */
 const NAV_ITEMS = [
-  { label: 'Home',         href: '#home' },
-  { label: 'About',        href: '#about' },
-  { label: 'Skills',       href: '#skills' },
-  { label: 'Coding',       href: '#coding' },
-  { label: 'Projects',     href: '#projects' },
-  { label: 'Experience',   href: '#experience' },
-  { label: 'Achievements', href: '#achievements' },
-  { label: 'Contact',      href: '#contact' },
+  { label: 'Home',     href: '#home' },
+  { label: 'About',    href: '#about' },
+  { label: 'Skills',   href: '#skills' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Contact',  href: '#contact' },
 ];
 
 const SECTION_IDS = NAV_ITEMS.map(i => i.href.slice(1));
@@ -126,32 +124,49 @@ export default function SpotlightNavbar({ items = NAV_ITEMS, className = '' }) {
         <div className="sn-progress-fill" style={{ width: `${scrollPct}%` }} />
       </div>
 
-      <nav ref={navRef} className="sn-nav">
-        {/* Nav links */}
-        <ul className="sn-list">
-          {items.map((item, idx) => (
-            <li key={idx} className="sn-item">
-              <a
-                href={item.href}
-                data-index={idx}
-                onClick={(e) => handleClick(e, item, idx)}
-                className={`sn-link${activeIndex === idx ? ' active' : ''}`}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+      <div className="sn-bar">
+        {/* Logo */}
+        <a href="#home" className="sn-logo" onClick={e => { e.preventDefault(); document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' }); }}>
+          <span className="sn-logo-text">RJ</span>
+        </a>
 
-        {/* Mouse spotlight layer */}
-        <div
-          className="sn-spotlight"
-          style={{ opacity: hoverX !== null ? 1 : 0 }}
-        />
+        <nav ref={navRef} className="sn-nav">
+          {/* Nav links */}
+          <ul className="sn-list">
+            {items.map((item, idx) => (
+              <li key={idx} className="sn-item">
+                <a
+                  href={item.href}
+                  data-index={idx}
+                  onClick={(e) => handleClick(e, item, idx)}
+                  className={`sn-link${activeIndex === idx ? ' active' : ''}`}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-        {/* Active ambience line */}
-        <div className="sn-ambience" />
-      </nav>
+          {/* Mouse spotlight layer */}
+          <div
+            className="sn-spotlight"
+            style={{ opacity: hoverX !== null ? 1 : 0 }}
+          />
+
+          {/* Active ambience line */}
+          <div className="sn-ambience" />
+        </nav>
+
+        {/* Download Resume CTA */}
+        <a
+          href="/resume.pdf"
+          download="Ritam_Jana_Resume.pdf"
+          className="sn-resume-btn"
+        >
+          <Download size={13} />
+          Download Resume
+        </a>
+      </div>
     </div>
   );
 }
