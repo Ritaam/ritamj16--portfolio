@@ -5,12 +5,14 @@ import './About.css';
 
 /* Animated counter hook */
 function useCounter(target, isActive, duration = 1800) {
-  const [count, setCount] = useState(0);
-  const numericTarget = parseInt(target.replace(/\D/g, ''), 10);
+  const digits = target.replace(/\D/g, '');
+  const isNumeric = digits.length > 0;
+  const numericTarget = isNumeric ? parseInt(digits, 10) : 0;
   const suffix = target.replace(/[0-9]/g, '');
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!isActive) return;
+    if (!isActive || !isNumeric) return;
     let start = 0;
     const step = numericTarget / (duration / 16);
     const timer = setInterval(() => {
@@ -23,8 +25,9 @@ function useCounter(target, isActive, duration = 1800) {
       }
     }, 16);
     return () => clearInterval(timer);
-  }, [isActive, numericTarget, duration]);
+  }, [isActive, numericTarget, duration, isNumeric]);
 
+  if (!isNumeric) return suffix;
   return `${count}${suffix}`;
 }
 
@@ -43,16 +46,16 @@ const About = () => {
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
 
   const stats = [
-    { number: '220+', label: 'DSA Problems Solved' },
-    { number: '2+',   label: 'Projects Built' },
-    { number: '5+',   label: 'Languages Known' },
-  ];
+    { number: '600+', label: 'DSA Problems Solved' },
+    { number: '2+', label: 'Projects Built' },
+    { number: '∞', label: 'Passion for Code' },
+  ];    
 
   const traits = [
-    { icon: <Target size={22} />,   title: 'Goal-Driven',      desc: 'Aiming for top-tier SWE roles' },
-    { icon: <BookOpen size={22} />, title: 'Lifelong Learner',  desc: 'Constantly upskilling in DSA & AI' },
-    { icon: <Zap size={22} />,      title: 'Fast Executor',     desc: 'From idea to working code quickly' },
-    { icon: <Cpu size={22} />,      title: 'Systems Thinker',   desc: 'Loves low-level & architecture design' },
+    { icon: <Target size={22} />, title: 'Goal-Driven', desc: 'Aiming for top-tier SWE roles' },
+    { icon: <BookOpen size={22} />, title: 'Lifelong Learner', desc: 'Constantly upskilling in DSA & AI' },
+    { icon: <Zap size={22} />, title: 'Fast Executor', desc: 'From idea to working code quickly' },
+    { icon: <Cpu size={22} />, title: 'Systems Thinker', desc: 'Loves low-level & architecture design' },
   ];
 
   const containerVariants = {
@@ -60,7 +63,7 @@ const About = () => {
     visible: { transition: { staggerChildren: 0.1 } },
   };
   const itemVariants = {
-    hidden:  { opacity: 0, y: 28 },
+    hidden: { opacity: 0, y: 28 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
   };
 
@@ -100,7 +103,7 @@ const About = () => {
             </p>
             <p>
               My career goal is clear: become a <strong>Software Engineer at a top tech
-              company</strong> and ship products that impact millions of users. I'm driven
+                company</strong> and ship products that impact millions of users. I'm driven
               by growth, consistency, and an obsession with clean, efficient code.
             </p>
 

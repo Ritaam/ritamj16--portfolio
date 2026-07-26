@@ -4,7 +4,7 @@ import { Award, ExternalLink, Code2, Brain, Globe, Cpu } from 'lucide-react';
 import './ProfileCard.css';
 
 let profileSrc = null;
-try { profileSrc = new URL('../assets/profile.jpg', import.meta.url).href; } catch (_) {}
+try { profileSrc = new URL('../assets/profile.jpg', import.meta.url).href; } catch (_) { }
 
 /* ─── Data ─────────────────────────────────────────── */
 const SKILLS = [
@@ -220,8 +220,8 @@ export default function ProfileCard() {
               <div className="pc-stats">
                 {[
                   { n: '220+', l: 'DSA Problems' },
-                  { n: '5+',   l: 'Languages' },
-                  { n: '2+',   l: 'Projects' },
+                  { n: '5+', l: 'Languages' },
+                  { n: '2+', l: 'Projects' },
                 ].map(s => (
                   <div key={s.l} className="pc-stat">
                     <span className="pc-stat-n text-gradient">{s.n}</span>

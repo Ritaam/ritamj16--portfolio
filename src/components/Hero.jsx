@@ -10,9 +10,9 @@ try { profileSrc = new URL('../assets/profile.jpg', import.meta.url).href; } cat
 
 /* ── Stats data ── */
 const STATS = [
-  { icon: Code2,   value: '220+', label: 'DSA Problems' },
-  { icon: Rocket,  value: '5+',   label: 'Projects Completed' },
-  { icon: Cpu,     value: '2+',   label: 'Years of Learning' },
+  { icon: Code2,   value: '600+', label: 'DSA Problems Solved' },
+  { icon: Rocket,  value: '2+',   label: 'Projects Built' },
+  { icon: Cpu,     value: '∞',    label: 'Passion for Code' },
 ];
 
 const Hero = () => {
